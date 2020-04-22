@@ -7,15 +7,21 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import * as serviceWorker from './serviceWorker';
 
-import App from './App';
+import { rootSaga } from './redux';
+import { gamesReducer } from './redux/games/reducers';
 
-import './index.scss';
+import App from './components/App';
+
+import './styles/index.scss';
+import './styles/normalize.scss';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
-  () => {},
+  gamesReducer,
   composeWithDevTools(applyMiddleware(sagaMiddleware)),
 );
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>

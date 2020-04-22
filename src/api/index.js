@@ -1,0 +1,1 @@
+export const fetchGames = () => fetch('../../data/gamesList.json');
