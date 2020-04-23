@@ -12,7 +12,12 @@ import {
 
 export function* fetchContacts() {
   try {
-    const { games, categories } = yield call(fetchGames, 1000);
+    const { games, categories: fetchedCategories } = yield call(fetchGames, 1000);
+    const favouriteCategory = { id: 999, nameKey: 'Избранное', games: [] };
+    const categories = [
+      ...fetchedCategories.slice(0, 1),
+      favouriteCategory,
+      ...fetchedCategories.slice(1, fetchedCategories.length)];
     yield put({
       type: FETCH_GAMES_SUCCESS,
       payload: { games, categories },

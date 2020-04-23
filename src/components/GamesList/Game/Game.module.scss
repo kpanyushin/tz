@@ -1,4 +1,17 @@
 .root {
-  display: block;
+  position: relative;
 }
 
+.title {
+  position: absolute;
+  bottom: 15px;
+  left: 10px;
+}
+
+.icon {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+}

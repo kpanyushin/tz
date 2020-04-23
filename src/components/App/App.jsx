@@ -31,13 +31,19 @@ const App = () => {
 
   if (!categories.length || !games.length) return <div>Loading...</div>;
 
-  const currentGamesIds = categories[currentCategory].games.map(({ id }) => id);
+  const category = categories.find(({ id }) => id === currentCategory);
+  const currentGamesIds = category.games.map(({ id }) => id);
   const currentGames = games.filter(({ id }) => currentGamesIds.includes(id));
 
   const items = currentGames.map((item) => {
-    const { top } = categories[currentCategory].games.find(({ id }) => id === item.id);
+    const { top } = category.games.find(({ id }) => id === item.id);
 
     return { ...item, top };
+  });
+
+  const handleFavouriteItemClick = id => dispatch({
+    type: 'SET_CATEGORY_FAVOURITE',
+    payload: { id },
   });
 
   return (
@@ -50,6 +56,7 @@ const App = () => {
       <GamesList
         className={s.games}
         games={items}
+        onFavouriteClick={handleFavouriteItemClick}
       />
     </div>
   );

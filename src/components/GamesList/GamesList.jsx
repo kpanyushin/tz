@@ -6,14 +6,14 @@ import Game from './Game';
 
 import s from './GamesList.module.scss';
 
-const GamesList = ({ className, games }) => {
+const GamesList = ({ className, games, onFavouriteClick }) => {
   const largeIcons = games.filter(game => game.top);
   const smallIcons = games.filter(game => !game.top);
 
   return (
     <div className={classes(className, s.root)}>
       <div className={s.largeIcons}>
-        {largeIcons.map(({ id, name, img }) => (
+        {largeIcons.map(({ id, name, img, favourite }) => (
           <Game
             className={s.largeGame}
             top
@@ -21,11 +21,13 @@ const GamesList = ({ className, games }) => {
             id={id}
             img={img}
             name={name}
+            favourite={favourite}
+            onFavouriteClick={onFavouriteClick}
           />
         ))}
       </div>
       <div className={s.smallIcons}>
-        {smallIcons.map(({ id, name, img, top }) => (
+        {smallIcons.map(({ id, name, img, favourite }) => (
           <Game
             className={s.smallGame}
             key={id}
@@ -33,6 +35,8 @@ const GamesList = ({ className, games }) => {
             img={img}
             name={name}
             top={false}
+            favorite={favourite}
+            onFavouriteClick={onFavouriteClick}
           />
         ))}
       </div>
@@ -52,6 +56,7 @@ GamesList.propTypes = {
       }),
     }),
   ),
+  onFavouriteClick: PropTypes.func,
 };
 
 export default GamesList;

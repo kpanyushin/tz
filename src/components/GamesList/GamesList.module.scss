@@ -3,24 +3,14 @@
 }
 
 .largeIcons {
-  // width: 50%;
   display: flex;
   flex-wrap: wrap;
-  // align-items: flex-start;
   flex: 1 0 502px;
 }
 
-.largeGame {
-  // width: 50%;
-}
 
 .smallIcons {
-  // width: 50%;
   display: flex;
   flex-wrap: wrap;
-  // align-items: flex-start;
-}
-
-.smallGame {
-  // width: 25%;
+  align-content: flex-start;
 }

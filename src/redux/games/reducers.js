@@ -1,6 +1,7 @@
 import {
   FETCH_GAMES_SUCCESS,
   SET_CURRENT_CATEGORY,
+  SET_CATEGORY_FAVOURITE,
 } from './actions';
 
 const initialState = {
@@ -29,6 +30,36 @@ export function gamesReducer(state = initialState, action = {}) {
       return {
         ...state,
         currentCategory,
+      };
+    }
+
+    case SET_CATEGORY_FAVOURITE: {
+      const { id } = payload;
+      const { games, categories } = state;
+      const newGames = games.map((game) => {
+        if (game.id === id) {
+          return {
+            ...game,
+            favourite: !game.favourite, 
+          };
+        }
+
+        return game;
+      });
+      const newCategories = categories.map((category) => {
+        if (category.id === 999) {
+          category.games = games
+            .filter(game => game.favourite)
+            .map(game => ({ id: game.id, top: true }));
+        }
+
+        return category;
+    })
+
+      return {
+        ...state,
+        games: newGames,
+        categories: newCategories,
       };
     }
 
