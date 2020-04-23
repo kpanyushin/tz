@@ -20,6 +20,7 @@ const Navbar = ({ className, categories }) => {
       <ul>
         {categories.map(({ id, nameKey }) => (
           <NavbarItem
+            className={s.item}
             key={id}
             id={id}
             nameKey={nameKey}

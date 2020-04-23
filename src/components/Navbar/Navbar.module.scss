@@ -1,0 +1,11 @@
+.root {
+  display: block;
+}
+
+.item {
+  margin-top: 4px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}

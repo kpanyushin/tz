@@ -19,7 +19,8 @@ const App = () => {
 
   return (
     <div className={s.root}>
-      <Navbar categories={categories} />
+      <Navbar className={s.navbar} categories={categories} />
+      <div />
     </div>
   );
 };
