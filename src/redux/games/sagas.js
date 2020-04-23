@@ -7,6 +7,7 @@ import {
 import {
   FETCH_GAMES_REQUEST,
   FETCH_GAMES_SUCCESS,
+  SET_CURRENT_CATEGORY,
 } from './actions';
 
 export function* fetchContacts() {
@@ -15,6 +16,10 @@ export function* fetchContacts() {
     yield put({
       type: FETCH_GAMES_SUCCESS,
       payload: { games, categories },
+    });
+    yield put({
+      type: SET_CURRENT_CATEGORY,
+      payload: { currentCategory: 0 },
     });
   } catch (err) {
     console.error(err);

@@ -1,19 +1,20 @@
+import React from 'react';
 import classes from 'classnames';
 import PropTypes from 'prop-types';
-import React, { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { SET_CURRENT_CATEGORY } from '../../redux/games/actions';
 
 import NavbarItem from './NavbarItem';
 
 import s from './Navbar.module.scss';
 
-const Navbar = ({ className, categories }) => {
-  const [currentId, setCurrentId] = useState(0);
-  const handleItemClick = useCallback(
-    id => {
-      setCurrentId(id);
-    },
-    [setCurrentId],
-  );
+const Navbar = ({ className, categories, currentCategory }) => {
+  const dispatch = useDispatch();
+  const handleItemClick = id => dispatch({
+    type: SET_CURRENT_CATEGORY,
+    payload: { currentCategory: id },
+  });
 
   return (
     <nav className={classes(className, s.root)}>
@@ -24,7 +25,7 @@ const Navbar = ({ className, categories }) => {
             key={id}
             id={id}
             nameKey={nameKey}
-            isActive={id === currentId}
+            isActive={id === currentCategory}
             onClick={handleItemClick}
           />
         ))}

@@ -1,8 +1,12 @@
-import { FETCH_GAMES_SUCCESS } from './actions';
+import {
+  FETCH_GAMES_SUCCESS,
+  SET_CURRENT_CATEGORY,
+} from './actions';
 
 const initialState = {
   categories: [],
   games: [],
+  currentCategory: 0,
 };
 
 export function gamesReducer(state = initialState, action = {}) {
@@ -16,6 +20,15 @@ export function gamesReducer(state = initialState, action = {}) {
         ...state,
         games,
         categories,
+      };
+    }
+
+    case SET_CURRENT_CATEGORY: {
+      const { currentCategory } = payload;
+
+      return {
+        ...state,
+        currentCategory,
       };
     }
 
