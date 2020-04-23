@@ -1,31 +1,27 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import Navbar from '../Navbar';
 
 import s from './App.module.scss';
 
-class App extends React.PureComponent {
-  componentDidMount() {
-    this.props.fetchData();
-  }
+const App = () => {
+  const dispatch = useDispatch();
+  const { games, categories } = useSelector(
+    ({ games, categories }) => ({ games, categories })
+  );
 
-  render() {
-    return (
-      <div className={s.app}>
-        App
-      </div>
-    );
-  }
+  useEffect(() => {
+    const fetchData = () => dispatch({ type: 'FETCH_GAMES_REQUEST' });
+
+    fetchData();
+  }, [dispatch]);
+
+  return (
+    <div className={s.root}>
+      <Navbar categories={categories} />
+    </div>
+  );
 };
 
-const mapStateToProps = ({ games, categories }) => ({
-  games,
-  categories,
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchData: () => dispatch({ type: 'FETCH_GAMES_REQUEST' }),
-});
-
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

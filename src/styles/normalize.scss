@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 *,
 *::before,
 *::after {
@@ -21,8 +23,9 @@ body {
   flex-direction: column;
   min-height: 100%;
   margin: 0;
-  background-color: #fff;
   line-height: 1;
+  background-color: $color-mirage;
+  color: $color-white;
   text-rendering: optimizeLegibility;
   text-decoration-skip: objects;
   -webkit-text-size-adjust: 100%;
