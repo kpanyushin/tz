@@ -1,4 +1,4 @@
-import { takeLatest, all, put, call, select } from 'redux-saga/effects';
+import { takeLatest, all, put, call } from 'redux-saga/effects';
 
 import {
   fetchGames
@@ -11,10 +11,11 @@ import {
 
 export function* fetchContacts() {
   try {
-    const response = yield call(fetchGames);
-    const { status, data } = response;
-
-    console.log(status, data);
+    const { games, categories } = yield call(fetchGames, 1000);
+    yield put({
+      type: FETCH_GAMES_SUCCESS,
+      payload: { games, categories },
+    });
   } catch (err) {
     console.error(err);
   }
