@@ -69,8 +69,6 @@ export function gamesReducer(state = initialState, action = {}) {
         return category;
       });
 
-      // localStorage.setItem('favourite', JSON.parse());
-
       return {
         ...state,
         games: newGames,
