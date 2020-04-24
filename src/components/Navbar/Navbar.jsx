@@ -4,6 +4,10 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import { SET_CURRENT_CATEGORY } from '../../redux/games/actions';
+import {
+  categoriesSelector,
+  currentCategorySelector,
+} from '../../redux/games/selectors';
 
 import NavbarItem from './NavbarItem';
 
@@ -11,16 +15,8 @@ import s from './Navbar.module.scss';
 
 const Navbar = ({ className }) => {
   const dispatch = useDispatch();
-  const { categories, currentCategory } = useSelector(
-    ({
-      categories,
-      currentCategory,
-    }) => ({
-      categories,
-      currentCategory,
-    }),
-    shallowEqual
-  );
+  const { categories } = useSelector(categoriesSelector, shallowEqual);
+  const { currentCategory } = useSelector(currentCategorySelector);
   const handleItemClick = useCallback(
     (id) => {
       dispatch({
@@ -39,10 +35,10 @@ const Navbar = ({ className }) => {
             className={s.item}
             key={id}
             id={id}
-            nameKey={nameKey}
+            title={nameKey}
             isActive={id === currentCategory}
-            onClick={handleItemClick}
             count={withCounter ? games.length : null}
+            onClick={handleItemClick}
           />
         ))}
       </ul>

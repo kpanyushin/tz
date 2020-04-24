@@ -14,8 +14,8 @@ export function* fetchContacts() {
   try {
     const { games, categories: fetchedCategories } = yield call(fetchGames, 1000);
     const favouriteCategory = {
-      id: 999,
       games: [],
+      id: 'favourite',
       withCounter: true,
       nameKey: 'Избранное',
     };

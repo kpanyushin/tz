@@ -47,7 +47,7 @@ export function gamesReducer(state = initialState, action = {}) {
         return game;
       });
       const newCategories = categories.map((category) => {
-        if (category.id === 999) {
+        if (category.id === 'favourite') {
           return {
             ...category,
             games: newGames

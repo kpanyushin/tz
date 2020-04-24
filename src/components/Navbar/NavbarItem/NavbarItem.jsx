@@ -7,7 +7,7 @@ import s from './NavbarItem.module.scss';
 const NavbarItem = ({
   className,
   id,
-  nameKey,
+  title,
   isActive,
   count,
   onClick,
@@ -23,7 +23,7 @@ const NavbarItem = ({
       })}
       onClick={handleClick}
     >
-      <div>{nameKey}</div>
+      <div>{title}</div>
       {count && <div>{count}</div>}
     </li>
   );
@@ -31,10 +31,10 @@ const NavbarItem = ({
 
 NavbarItem.propTypes = {
   className: PropTypes.string,
-  id: PropTypes.number,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   count: PropTypes.number,
   isActive: PropTypes.bool,
-  nameKey: PropTypes.string,
+  title: PropTypes.string,
   onClick: PropTypes.func,
 };
 

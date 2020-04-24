@@ -1,10 +1,8 @@
+import React from 'react';
 import classes from 'classnames';
 import PropTypes from 'prop-types';
-import React, { useCallback } from 'react';
+import { useSelector, shallowEqual } from 'react-redux';
 
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-
-import { SET_CATEGORY_FAVOURITE } from '../../redux/games/actions';
 import {
   gamesSelector,
   categoriesSelector,
@@ -19,16 +17,6 @@ const GamesList = ({ className }) => {
   const { games } = useSelector(gamesSelector, shallowEqual);
   const { categories } = useSelector(categoriesSelector, shallowEqual);
   const { currentCategory } = useSelector(currentCategorySelector);
-  const dispatch = useDispatch();
-  const handleFavouriteItemClick = useCallback(
-    (id) => {
-      dispatch({
-        type: SET_CATEGORY_FAVOURITE,
-        payload: { id },
-      });
-    },
-    [dispatch],
-  );
 
   if (!categories.length || !games.length) return (
     <div className={s.preloader}>Loading...</div>
@@ -49,7 +37,6 @@ const GamesList = ({ className }) => {
             top
             id={id}
             key={id}
-            onFavouriteClick={handleFavouriteItemClick}
           />
         ))}
       </div>
@@ -60,7 +47,6 @@ const GamesList = ({ className }) => {
             key={id}
             id={id}
             top={false}
-            onFavouriteClick={handleFavouriteItemClick}
           />
         ))}
       </div>
