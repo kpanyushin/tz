@@ -12,13 +12,31 @@ import {
 
 export function* fetchContacts() {
   try {
-    const { games, categories: fetchedCategories } = yield call(fetchGames, 1000);
+    const {
+      games: fetchedGames,
+      categories: fetchedCategories,
+    } = yield call(fetchGames, 1000);
+    const favouriteIds = JSON.parse(localStorage.getItem('favourite')) || [];
     const favouriteCategory = {
-      games: [],
+      games: [...favouriteIds.map(_id => ({
+        id: _id,
+        top: true,
+        favourite: true,
+      }))],
       id: 'favourite',
       withCounter: true,
       nameKey: 'Избранное',
     };
+    const games = fetchedGames.map((game) => {
+      if (favouriteIds.includes(game.id)) {
+        return {
+          ...game,
+          favourite: true,
+        };
+      }
+
+      return game;
+    })
     const categories = [
       ...fetchedCategories.slice(0, 1),
       favouriteCategory,

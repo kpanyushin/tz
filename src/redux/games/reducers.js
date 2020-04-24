@@ -36,8 +36,18 @@ export function gamesReducer(state = initialState, action = {}) {
     case SET_CATEGORY_FAVOURITE: {
       const { id } = payload;
       const { games, categories } = state;
+      const favouriteIds = JSON.parse(localStorage.getItem('favourite')) || [];
       const newGames = games.map((game) => {
         if (game.id === id) {
+          if (game.favourite) {
+            localStorage.setItem(
+              'favourite',
+              JSON.stringify(favouriteIds.filter(_id => _id !== id))
+            );
+          } else {
+            favouriteIds.push(id);
+            localStorage.setItem('favourite', JSON.stringify(favouriteIds));
+          }
           return {
             ...game,
             favourite: !game.favourite, 
@@ -58,6 +68,8 @@ export function gamesReducer(state = initialState, action = {}) {
 
         return category;
       });
+
+      // localStorage.setItem('favourite', JSON.parse());
 
       return {
         ...state,
