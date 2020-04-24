@@ -48,13 +48,16 @@ export function gamesReducer(state = initialState, action = {}) {
       });
       const newCategories = categories.map((category) => {
         if (category.id === 999) {
-          category.games = games
+          return {
+            ...category,
+            games: newGames
             .filter(game => game.favourite)
-            .map(game => ({ id: game.id, top: true }));
+            .map(game => ({ id: game.id, top: true }))
+          };
         }
 
         return category;
-    })
+      });
 
       return {
         ...state,

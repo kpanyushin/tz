@@ -1,8 +1,10 @@
 @import '../../../styles/variables.scss';
 
 .root {
+  display: flex;
+  justify-content: space-between;
   padding: 8px 10px;
-  cursor:pointer;
+  cursor: pointer;
   background-color: $color-oxford-blue;
 
   &.active {

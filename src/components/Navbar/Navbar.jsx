@@ -1,7 +1,7 @@
-import React from 'react';
 import classes from 'classnames';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import { SET_CURRENT_CATEGORY } from '../../redux/games/actions';
 
@@ -9,17 +9,32 @@ import NavbarItem from './NavbarItem';
 
 import s from './Navbar.module.scss';
 
-const Navbar = ({ className, categories, currentCategory }) => {
+const Navbar = ({ className }) => {
   const dispatch = useDispatch();
-  const handleItemClick = id => dispatch({
-    type: SET_CURRENT_CATEGORY,
-    payload: { currentCategory: id },
-  });
+  const { categories, currentCategory } = useSelector(
+    ({
+      categories,
+      currentCategory,
+    }) => ({
+      categories,
+      currentCategory,
+    }),
+    shallowEqual
+  );
+  const handleItemClick = useCallback(
+    (id) => {
+      dispatch({
+        type: SET_CURRENT_CATEGORY,
+        payload: { currentCategory: id },
+      });
+    },
+    [dispatch],
+  );
 
   return (
     <nav className={classes(className, s.root)}>
       <ul>
-        {categories.map(({ id, nameKey }) => (
+        {categories.map(({ id, nameKey, withCounter, games }) => (
           <NavbarItem
             className={s.item}
             key={id}
@@ -27,6 +42,7 @@ const Navbar = ({ className, categories, currentCategory }) => {
             nameKey={nameKey}
             isActive={id === currentCategory}
             onClick={handleItemClick}
+            count={withCounter ? games.length : null}
           />
         ))}
       </ul>
@@ -36,16 +52,6 @@ const Navbar = ({ className, categories, currentCategory }) => {
 
 Navbar.propTypes = {
   className: PropTypes.string,
-  categories: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      nameKey: PropTypes.string,
-      games: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number,
-        top: PropTypes.bool,
-      })),
-    }),
-  ),
-}
+};
 
 export default Navbar;

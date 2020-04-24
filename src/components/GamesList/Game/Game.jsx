@@ -1,21 +1,25 @@
 import React from 'react';
 import classes from 'classnames';
 import PropTypes from 'prop-types';
+import { useSelector, shallowEqual } from 'react-redux';
+
+import { gameSelector } from '../../../redux/games/selectors';
 
 import s from './Game.module.scss';
 
 const Game = ({
   className,
   id,
-  name,
-  img,
   top,
-  favourite,
   onFavouriteClick,
 }) => {
+  const { img, name, favourite } = useSelector(
+    state => gameSelector(state, id),
+    shallowEqual
+  );
   const favouriteActive = 'icon-favorites-active.svg';
-  const favoriteNoActive = 'icon-favorites-noactive.svg';
-  const favicon = `assets/icons/${favourite ? favouriteActive : favoriteNoActive}`;
+  const favouriteNoActive = 'icon-favorites-noactive.svg';
+  const favoutireSrc = `assets/icons/${favourite ? favouriteActive : favouriteNoActive}`;
   const handleFavoutiteClick = () => {
     onFavouriteClick(id);
   };
@@ -30,8 +34,8 @@ const Game = ({
       <div className={s.title}>{name}</div>
       <img
         className={s.icon}
-        src={favicon}
         alt="favourite"
+        src={favoutireSrc}
         onClick={handleFavoutiteClick}
       />
     </div>
@@ -42,13 +46,7 @@ Game.propTypes = {
   className: PropTypes.string,
   top: PropTypes.bool,
   id: PropTypes.number,
-  name: PropTypes.string,
-  img: PropTypes.shape({
-    small: PropTypes.string,
-    large: PropTypes.string,
-  }),
-  favorite: PropTypes.bool,
   onFavouriteClick: PropTypes.func,
 };
 
-export default Game;
+export default React.memo(Game);

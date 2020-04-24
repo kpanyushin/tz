@@ -13,7 +13,12 @@ import {
 export function* fetchContacts() {
   try {
     const { games, categories: fetchedCategories } = yield call(fetchGames, 1000);
-    const favouriteCategory = { id: 999, nameKey: 'Избранное', games: [] };
+    const favouriteCategory = {
+      id: 999,
+      games: [],
+      withCounter: true,
+      nameKey: 'Избранное',
+    };
     const categories = [
       ...fetchedCategories.slice(0, 1),
       favouriteCategory,

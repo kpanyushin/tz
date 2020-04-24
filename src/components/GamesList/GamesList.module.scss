@@ -1,16 +1,39 @@
+@import '../../styles/variables.scss';
+
 .root {
   display: flex;
+
+  @media (max-width: $mobile-breakpoint) {
+    display: block;
+  }
 }
 
-.largeIcons {
+.largeIconGames {
   display: flex;
   flex-wrap: wrap;
-  flex: 1 0 502px;
+  flex: 0 0 502px;
+
+  @media (max-width: $mobile-breakpoint) {
+    flex: unset;
+    justify-content: center;
+    margin-top: 20px;
+  }
 }
 
-
-.smallIcons {
+.smallIconGames {
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
+
+  @media (max-width: $mobile-breakpoint) {
+    justify-content: center;
+    margin-top: 20px;
+  }
+}
+
+.preloader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

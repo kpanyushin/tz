@@ -9,6 +9,7 @@ const NavbarItem = ({
   id,
   nameKey,
   isActive,
+  count,
   onClick,
 }) => {
   const handleClick = () => {
@@ -22,7 +23,8 @@ const NavbarItem = ({
       })}
       onClick={handleClick}
     >
-      {nameKey}
+      <div>{nameKey}</div>
+      {count && <div>{count}</div>}
     </li>
   );
 };
@@ -30,9 +32,10 @@ const NavbarItem = ({
 NavbarItem.propTypes = {
   className: PropTypes.string,
   id: PropTypes.number,
+  count: PropTypes.number,
   isActive: PropTypes.bool,
   nameKey: PropTypes.string,
   onClick: PropTypes.func,
 };
 
-export default NavbarItem;
+export default React.memo(NavbarItem);
